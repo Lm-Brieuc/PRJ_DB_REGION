@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PRJ_REGIONSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Departements">
+          <Key>
+            <PropertyRef Name="idDepartement" />
+          </Key>
+          <Property Name="idDepartement" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="region_code" Type="varchar" MaxLength="50" />
+          <Property Name="code" Type="varchar" MaxLength="50" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="slug" Type="varchar" MaxLength="50" />
+          <Property Name="idRegion" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Regions">
+          <Key>
+            <PropertyRef Name="idRegion" />
+          </Key>
+          <Property Name="idRegion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="slug" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Villes">
+          <Key>
+            <PropertyRef Name="idVille" />
+          </Key>
+          <Property Name="idVille" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="department_code" Type="varchar" MaxLength="50" />
+          <Property Name="insee_code" Type="varchar" MaxLength="50" />
+          <Property Name="zip_code" Type="varchar" MaxLength="50" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="slug" Type="varchar" MaxLength="50" />
+          <Property Name="gps_lat" Type="decimal" Precision="20" Scale="15" />
+          <Property Name="gps_lng" Type="decimal" Precision="20" Scale="15" />
+          <Property Name="idDepartement" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Departeme__idReg__267ABA7A">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="1" />
+          <End Role="Departements" Type="Self.Departements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="idRegion" />
+            </Principal>
+            <Dependent Role="Departements">
+              <PropertyRef Name="idRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Villes__idDepart__29572725">
+          <End Role="Departements" Type="Self.Departements" Multiplicity="1" />
+          <End Role="Villes" Type="Self.Villes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departements">
+              <PropertyRef Name="idDepartement" />
+            </Principal>
+            <Dependent Role="Villes">
+              <PropertyRef Name="idDepartement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PRJ_REGIONSModelStoreContainer">
+          <EntitySet Name="Departements" EntityType="Self.Departements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Regions" EntityType="Self.Regions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Villes" EntityType="Self.Villes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Departeme__idReg__267ABA7A" Association="Self.FK__Departeme__idReg__267ABA7A">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="Departements" EntitySet="Departements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Villes__idDepart__29572725" Association="Self.FK__Villes__idDepart__29572725">
+            <End Role="Departements" EntitySet="Departements" />
+            <End Role="Villes" EntitySet="Villes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PRJ_REGIONSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Departements">
+          <Key>
+            <PropertyRef Name="idDepartement" />
+          </Key>
+          <Property Name="idDepartement" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="region_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="slug" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idRegion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Regions" Relationship="Self.FK__Departeme__idReg__267ABA7A" FromRole="Departements" ToRole="Regions" />
+          <NavigationProperty Name="Villes" Relationship="Self.FK__Villes__idDepart__29572725" FromRole="Departements" ToRole="Villes" />
+        </EntityType>
+        <EntityType Name="Regions">
+          <Key>
+            <PropertyRef Name="idRegion" />
+          </Key>
+          <Property Name="idRegion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="slug" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Departements" Relationship="Self.FK__Departeme__idReg__267ABA7A" FromRole="Regions" ToRole="Departements" />
+        </EntityType>
+        <EntityType Name="Villes">
+          <Key>
+            <PropertyRef Name="idVille" />
+          </Key>
+          <Property Name="idVille" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="department_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="insee_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="zip_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="slug" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="gps_lat" Type="Decimal" Precision="20" Scale="15" />
+          <Property Name="gps_lng" Type="Decimal" Precision="20" Scale="15" />
+          <Property Name="idDepartement" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Departements" Relationship="Self.FK__Villes__idDepart__29572725" FromRole="Villes" ToRole="Departements" />
+        </EntityType>
+        <Association Name="FK__Departeme__idReg__267ABA7A">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="1" />
+          <End Role="Departements" Type="Self.Departements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="idRegion" />
+            </Principal>
+            <Dependent Role="Departements">
+              <PropertyRef Name="idRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Villes__idDepart__29572725">
+          <End Role="Departements" Type="Self.Departements" Multiplicity="1" />
+          <End Role="Villes" Type="Self.Villes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departements">
+              <PropertyRef Name="idDepartement" />
+            </Principal>
+            <Dependent Role="Villes">
+              <PropertyRef Name="idDepartement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="connexionChaine" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Departements" EntityType="Self.Departements" />
+          <EntitySet Name="Regions" EntityType="Self.Regions" />
+          <EntitySet Name="Villes" EntityType="Self.Villes" />
+          <AssociationSet Name="FK__Departeme__idReg__267ABA7A" Association="Self.FK__Departeme__idReg__267ABA7A">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="Departements" EntitySet="Departements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Villes__idDepart__29572725" Association="Self.FK__Villes__idDepart__29572725">
+            <End Role="Departements" EntitySet="Departements" />
+            <End Role="Villes" EntitySet="Villes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PRJ_REGIONSModelStoreContainer" CdmEntityContainer="connexionChaine">
+          <EntitySetMapping Name="Departements">
+            <EntityTypeMapping TypeName="PRJ_REGIONSModel.Departements">
+              <MappingFragment StoreEntitySet="Departements">
+                <ScalarProperty Name="idDepartement" ColumnName="idDepartement" />
+                <ScalarProperty Name="region_code" ColumnName="region_code" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="slug" ColumnName="slug" />
+                <ScalarProperty Name="idRegion" ColumnName="idRegion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="PRJ_REGIONSModel.Regions">
+              <MappingFragment StoreEntitySet="Regions">
+                <ScalarProperty Name="idRegion" ColumnName="idRegion" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="slug" ColumnName="slug" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Villes">
+            <EntityTypeMapping TypeName="PRJ_REGIONSModel.Villes">
+              <MappingFragment StoreEntitySet="Villes">
+                <ScalarProperty Name="idVille" ColumnName="idVille" />
+                <ScalarProperty Name="department_code" ColumnName="department_code" />
+                <ScalarProperty Name="insee_code" ColumnName="insee_code" />
+                <ScalarProperty Name="zip_code" ColumnName="zip_code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="slug" ColumnName="slug" />
+                <ScalarProperty Name="gps_lat" ColumnName="gps_lat" />
+                <ScalarProperty Name="gps_lng" ColumnName="gps_lng" />
+                <ScalarProperty Name="idDepartement" ColumnName="idDepartement" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
